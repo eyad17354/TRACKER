@@ -1,9 +1,9 @@
 <?php
 
 $CONFIG = array (
-    "smeo12345678900987654321" => [
+    "TRACKER" => [
         "fullname" => "hacker", 
-        "password" => "smeo12345678900987654321",
+        "password" => "TRACKER",
     ], 
     
 );
