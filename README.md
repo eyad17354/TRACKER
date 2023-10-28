@@ -9,7 +9,4 @@
 # $ sudo python3 -m pip install -r requirements.txt
 # $ sudo python3 st.cpython-311.pyc
 # Login :
-# User:
-TRACKER
-# Password :
-TRACKER
+ User :TRACKER / Password :TRACKER
